@@ -7,11 +7,15 @@ class BlogFlowTest < ActionDispatch::IntegrationTest
   end
 
   test "successfully create an article" do
-    get "/articles/new"
+    @credential = ActionController::HttpAuthentication::Basic.encode_credentials("dhh", "secret")
+    get "/articles/new",
+        headers: {'HTTP_AUTHORIZATION': @credential}
     assert_response :success
 
     post "/articles",
-      params: { article: { title: "can create", body: "article succeessfully"} }
+         params: { article: { title: "can create",
+                              body: "article succeessfully"} },
+         headers: {'HTTP_AUTHORIZATION': @credential}
     assert_response :redirect
     follow_redirect!
     assert_response :success
