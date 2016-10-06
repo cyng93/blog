@@ -1,0 +1,31 @@
+Setting up itsoc_labvm
+======================
+OS: fedora 24
+
+1. customize env
+----------------
+* Install vim, screen
+~~~
+$ sudo dnf install vim
+$ sudo dnf install screen
+~~~
+
+* Enable ssh server 
+~~~
+$ sudo systemctl enable sshd.service
+$ sudo systemctl start sshd.service
+~~~
+
+2. Setting up rvm, ruby, rails
+------------------------------
+* Setup rvm, with ruby
+~~~
+$ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+$ \curl -sSL https://get.rvm.io | bash -s stable --ruby
+~~~
+
+* Install custom ruby & rails version(same with itsoc development)
+~~~
+$ rvm install ruby-2.2.0
+$ gem install rails -v 4.2.6
+~~~

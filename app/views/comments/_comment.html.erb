@@ -8,6 +8,22 @@
   <%= comment.body %>
 </p>
 
+<% if comment.attachment.present? %>
+<p>
+  <strong>Attachment:</strong>
+  </br>
+  <% basefile = comment.attachment.url.split('/').last() %>
+  <% file_type = basefile.split('.').last().downcase %>
+  <% valid_image_type = ['jpg', 'jpeg', 'png', 'bmp'] %>
+  <% if valid_image_type.include?file_type %>
+    <%= image_tag comment.attachment.url %>
+  <% else %>
+    <%= link_to basefile, root_url+comment.attachment.url %>
+  <% end %>
+</p>
+<% end %>
+
+
 <p>
   <%= link_to 'Destroy Comment', [comment.article, comment],
               method: :delete,
