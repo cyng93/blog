@@ -8,6 +8,25 @@
   <%= @article.text %>
 </p>
 
+<% if @article.attachments.present? %>
+<p>
+  <strong>Attachment:</strong>
+  </br>
+  <% @article.attachments.each do |attachment| %>
+    <% basefile = attachment.url.split('/').last() %>
+    <% file_type = basefile.split('.').last().downcase %>
+    <% valid_image_type = ['jpg', 'jpeg', 'png', 'bmp'] %>
+    <% if valid_image_type.include?file_type %>
+      <%= image_tag attachment.thumb.url %>
+    <% else %>
+      <%= link_to basefile, root_url+attachment.url %>
+    <% end %>
+    </br>
+  <% end %>
+</p>
+<% end %>
+
+
 <h2>Comments</h2>
 <%= render @article.comments %>
 

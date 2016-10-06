@@ -1,0 +1,1 @@
+modprobe configs ; gunzip -dc /proc/config.gz | grep AUDIT
