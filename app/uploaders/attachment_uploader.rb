@@ -31,7 +31,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb do
+  version :thumb , :if => :image? do
     process resize_to_fit: [50, 50]
   end
 
@@ -46,5 +46,13 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+
+
+protected
+
+  # Help to identify if uploaded file is an image
+  def image?(new_file)
+    new_file.content_type.start_with? 'image'
+  end
 
 end

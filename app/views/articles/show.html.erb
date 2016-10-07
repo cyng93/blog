@@ -17,7 +17,9 @@
     <% file_type = basefile.split('.').last().downcase %>
     <% valid_image_type = ['jpg', 'jpeg', 'png', 'bmp'] %>
     <% if valid_image_type.include?file_type %>
-      <%= image_tag attachment.thumb.url %>
+      <%= link_to attachment.url do %>
+        <%= image_tag attachment.thumb.url %>
+      <% end %>
     <% else %>
       <%= link_to basefile, root_url+attachment.url %>
     <% end %>

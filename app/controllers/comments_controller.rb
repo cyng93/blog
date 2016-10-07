@@ -5,6 +5,14 @@ class CommentsController < ApplicationController
   def create
     @article = Article.find(params[:article_id])
     @comment = @article.comments.create(comment_params)
+    # Notify user for invalid creation
+    if !@comment.valid?
+      flash[:message] = @article.errors.full_messages
+    end
+
+    # redirect here will cause including error msg twice, check log for details
+    #   yet we need redirect to show the article again
+    redirect_to article_path(@article)
   end
 
   def destroy
