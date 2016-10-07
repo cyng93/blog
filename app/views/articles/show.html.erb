@@ -1,3 +1,5 @@
+<!-- Article rendering -->
+<h2>Article</h2>
 <p>
   <strong>Title:</strong>
   <%= @article.title %>
@@ -10,12 +12,14 @@
 
 <% if @article.attachments.present? %>
 <p>
-  <strong>Attachment:</strong>
+  <strong>Attachments:</strong>
   </br>
+  <ol>
   <% @article.attachments.each do |attachment| %>
     <% basefile = attachment.url.split('/').last() %>
     <% file_type = basefile.split('.').last().downcase %>
     <% valid_image_type = ['jpg', 'jpeg', 'png', 'bmp'] %>
+    <li>
     <% if valid_image_type.include?file_type %>
       <%= link_to attachment.url do %>
         <%= image_tag attachment.thumb.url %>
@@ -23,15 +27,24 @@
     <% else %>
       <%= link_to basefile, root_url+attachment.url %>
     <% end %>
+    </li>
     </br>
   <% end %>
+  </ol>
 </p>
 <% end %>
 
-
+<!-- Comments rendering -->
+<hr>
 <h2>Comments</h2>
-<%= render @article.comments %>
+<ul>
+<% @article.comments.each do |comment| %>
+  <li><%= render comment %></li>
+<% end %>
+</ul>
 
+<!-- Comment adding section -->
+<hr>
 <h2>Add a comment:</h2>
 <%= render 'comments/form' %>
 
