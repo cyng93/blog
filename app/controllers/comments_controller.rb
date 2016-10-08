@@ -4,16 +4,10 @@ class CommentsController < ApplicationController
 
   def create
     @article = Article.find(params[:article_id])
-
-    # Not sure why `create` will cause two error for
-    #   `@article.errors.full_messsages` , yet `new` won't
-    @comment = @article.comments.create(comment_params)
-    #@comment = @article.comments.new(comment_params)
+    @comment = @article.comments.new(comment_params)
 
     # Notify user for invalid creation (pass the error using flash)
-    if !@comment.save
-      flash[:message] = @article.errors.full_messages
-    end
+    flash[:message] = @comment.errors.full_messages unless @comment.save
 
     redirect_to article_path(@article)
   end
