@@ -7,9 +7,9 @@ end
 
 def have_either_text_or_attachment
   if body.blank? && attachment.blank?
-    # Line below need to be included to make validate above works
-    errors.add :base, 'Neither text or attachments is found in comment!'
-    # Line below are used to pass error message to comment's parent
+    errors.add :base, 'Comment need to have at least text or file!'
+    # Line below are used to pass error message to comment's parent,
+    #   and to reproduce mutliple rendering issues in controller
     self.article.errors.add :base, 'Comments contains nothing!'
   end
 end

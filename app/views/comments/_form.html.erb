@@ -1,7 +1,24 @@
-<!-- showing error msg -->
+<!--
+  Here we demostract two ways of showing error on creating a nested object.
+  Situation are quite complicated here as we used 'redirect_to(@article)'
+  when creating new comment. which will cause the object '@article' is suppose
+  to contains error being overwrite by a new '@article' object.
+
+  So the workaround here would be either passing the error using
+  `flash[:message]`, or as parameters when doing `redirect_to(@article)`.
+  ex. redirect_to article_path( @article,
+                                errors: @article.errors.full_messages)
+
+  references: https://goo.gl/1Nm0SU
+-->
+
+<!-- showing error msg [1] -->
 <% if !flash[:message].nil? %>
   <div id="error_explanation">
-    <h4>errors occurs when creating comment:</h4>
+    <h4>
+      <%= pluralize(flash[:message].length, "error") %> prohibited
+      this comment from being saved:
+    </h4>
     <ul>
     <% flash[:message].each do |msg| %>
       <li><%= msg %></li>
@@ -10,18 +27,36 @@
   </div>
 <% end %>
 
-<!--
-  not sure why this can't work even though we had already attach error msg
-  to @article? Check validation in comment's model!
-
-  references: https://goo.gl/1Nm0SU
--->
-<% if @article.errors.messages[:base].any? %>
+<!-- showing error msg [2] -->
+<% if params[:errors].present? %>
+  <% errors = params[:errors] %>
   <div id="error_explanation">
-    <h2>
+    <h4>
+      <%= pluralize(errors.length, "error") %> prohibited
+      this comment from being saved:
+    </h4>
+    <ul>
+      <% errors.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<!--
+  showing error msg [3]
+
+  This is supposed to be the default and easiest way, but doesn't work due to
+  the 'redirect_to' issues(see above).
+  Change action from `redirect_to` to `render new` should be able to made this
+  method works
+-->
+<% if @article.errors.any? %>
+  <div id="error_explanation">
+    <h4>
       <%= pluralize(@article.errors.count, "error") %> prohibited
-      this article from being saved:
-    </h2>
+      this comment from being saved:
+    </h4>
     <ul>
       <% @article.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -29,7 +64,6 @@
     </ul>
   </div>
 <% end %>
-
 
 <%= form_for([@article, @article.comments.build]) do |f| %>
   <p>

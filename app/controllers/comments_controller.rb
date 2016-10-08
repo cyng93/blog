@@ -4,14 +4,17 @@ class CommentsController < ApplicationController
 
   def create
     @article = Article.find(params[:article_id])
+
+    # Not sure why `create` will cause two error for
+    #   `@article.errors.full_messsages` , yet `new` won't
     @comment = @article.comments.create(comment_params)
-    # Notify user for invalid creation
-    if !@comment.valid?
+    #@comment = @article.comments.new(comment_params)
+
+    # Notify user for invalid creation (pass the error using flash)
+    if !@comment.save
       flash[:message] = @article.errors.full_messages
     end
 
-    # redirect here will cause including error msg twice, check log for details
-    #   yet we need redirect to show the article again
     redirect_to article_path(@article)
   end
 
