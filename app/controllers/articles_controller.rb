@@ -1,10 +1,16 @@
 class ArticlesController < ApplicationController
 
-  http_basic_authenticate_with name: "dhh", password: "secret",
-      except: [:index, :show]
+  http_basic_authenticate_with name: "dhh",
+                               password: "secret",
+                               except: [:index, :show]
 
+  # a ransack-required stuff based on discussion on https://goo.gl/c1KprI
+  #
+  # @q is the default params key for search params, while can be re-define
+  # in `config/initializers/ransack.rb`.
   def index
-    @articles = Article.all
+    @q = Article.ransack(params[:q])
+    @articles = @q.result(distinct: true)
   end
 
   def show

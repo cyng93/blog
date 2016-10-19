@@ -1,0 +1,11 @@
+<%= search_form_for @q do |f| %>
+  <!--
+    Label is important as some of the accessibility tools work depend
+    on the existance of label.
+  -->
+  <%= f.label 'Search bar: ' %>
+  <%= f.search_field :title_cont,
+                     placeholder: 'Search article with title...' %>
+
+  <%= f.submit %>
+<% end %>

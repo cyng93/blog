@@ -50,3 +50,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Suppport upload feature
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'mini_magick'
+
+# Support ransack's metasearch
+gem 'ransack', github: 'activerecord-hackery/ransack'
