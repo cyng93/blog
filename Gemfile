@@ -53,3 +53,10 @@ gem 'mini_magick'
 
 # Support ransack's metasearch
 gem 'ransack', github: 'activerecord-hackery/ransack'
+
+# Let's see how it's gonna work like a tdd-ian
+group :development, :test do
+  %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
+    gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => 'master'
+  end
+end
