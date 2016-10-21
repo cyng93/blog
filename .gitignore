@@ -22,3 +22,6 @@
 
 # Ignore *.swp file crated by vim
 *.swp
+
+# Ignore uploaded file
+/public/uploads

@@ -60,3 +60,10 @@ group :development, :test do
     gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => 'master'
   end
 end
+
+# shoulda make test more human-readable
+group :test, :development do
+  # we remove this as we refer to different ver of rspec above
+  # gem 'rspec-rails'
+  gem 'shoulda-matchers'
+end
