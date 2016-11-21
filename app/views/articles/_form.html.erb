@@ -20,22 +20,31 @@ More details can be found in form_for documentation.
     </div>
   <% end %>
 
-  <p>
+  <div class="row">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </p>
+    <%= f.text_field :title, class: 'materialize-textarea' %>
+  </div>
 
-  <p>
+  <div class="row">
     <%= f.label :text %><br>
-    <%= f.text_area :text %>
-  </p>
+    <%= f.text_area :text, class: 'materialize-textarea' %>
+  </div>
 
-  <p>
-    <%= f.file_field :attachments, multiple: true %>
-  </p>
+  <div class="row">
+    <div class="file-field input-field">
+      <div class="btn">
+        <span>File</span>
+        <%= f.file_field :attachments, multiple: true %>
+      </div>
+    </div>
+    <div class="file-path-wrapper">
+      <%= f.text_field :attachments_urls,
+                       class: 'file-path validate',
+                       placeholder: 'Upload one or more files' %>
+    </div>
+  </div>
 
-  <p>
-    <%= f.submit %>
-  </p>
+  <div class="row">
+    <%= f.submit class: 'btn waves-effect waves-light' %>
+  </div>
 <% end %>
-
