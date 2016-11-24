@@ -25,3 +25,6 @@
 
 # Ignore uploaded file
 /public/uploads
+
+# Ignore Gemfile.lock
+/Gemfile.lock
